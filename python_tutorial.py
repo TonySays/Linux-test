@@ -15,12 +15,11 @@ for col in range(len(game)):
     
     for row in game:
         check.append(row[col])
-        print(check)
        
-        #if check.count(check[0]) == len(check) and check[0] != 0:
+        if check.count(check[0]) == len(check) and check[0] != 0 and len(check) >= len(game):
 
-         #   print(check)
-         #   print("winner!")
+            print(check)
+            print("winner!")
 
 '''
 def win(current_game):
