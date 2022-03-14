@@ -1,8 +1,9 @@
 from ast import Return
 from audioop import reverse
-from cgi import print_environ_usage
 from itertools import count
 import itertools
+
+from colorama import Fore, Back, Style
 
 from sqlite3 import Row
 
@@ -69,13 +70,23 @@ def game_board(
         if game_ini[row][column]!=0:
             print("This position is occupied, choose another!")
             return game_ini, False
-        print("   0  1  2")
+        
+        print("   " + "  ".join([str(i) for i in range(len(game_ini))]))
     
         if not just_display:
             game_ini[row][column] = player  # game_ini as game board as "game board" has already been used
             
         for unpack1,unpack2 in enumerate(game_ini):
-            print(unpack1,unpack2)
+            colored_row = ""
+            for item in unpack2:
+                if item == 0:
+                    colored_row += "   "
+                elif item == 1:
+                    colored_row += Fore.GREEN + ' X ' + Style.RESET_ALL
+                elif item == 2:
+                    colored_row += Fore.MAGENTA + ' 0 ' + Style.RESET_ALL
+            print(unpack1,colored_row)
+
         return game_ini, True
 
     except IndexError as e:
@@ -91,9 +102,8 @@ play = True
 players = [1,2]
 
 while play:
-    game = [[0, 0, 0],      # Setting game board
-            [0, 0, 0],
-            [0, 0, 0],]
+    game_size = int(input("what size game do you want for tic tac toe? "))
+    game = [[0 for i in range(game_size)] for i in range(game_size)]
 
     game_won = False
     game, _ = game_board(game,just_display=True)        # Pass in game array as variable 
@@ -105,8 +115,8 @@ while play:
         played = False
 
         while not played:
-            column_choice = int(input("what column you want to play? (0,1,2):"))
-            row_choice = int(input("what row you want to play? (0,1,2):"))
+            column_choice = int(input(f"what column you want to play? "))
+            row_choice = int(input("what row you want to play? "))
             game, played = game_board(game, current_player, row_choice, column_choice)
         
         if win(game):
@@ -131,7 +141,7 @@ while play:
 '''         
             
             
-
+# Complete :)
 
 
             
