@@ -124,7 +124,7 @@ while play:
             again = input("Game over, want to play again? (y/n) ")
 #  My methods
             if again.lower() != "y":
-                print("game end")
+                print("Game End TY! ")
                 play = False
             else:
                 print("restarting the game now!")
